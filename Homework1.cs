@@ -11,7 +11,7 @@ enum Planet
     Uranus,
     Neptune
 }
-namespace Homework_Template
+namespace Homework1
 {
     class Program
     {
