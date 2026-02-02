@@ -1,6 +1,16 @@
 ﻿using System;
 using System.Numerics;
-
+enum Planet
+{
+    Mercury = 1,
+    Venus,
+    Earth,
+    Mars,
+    Jupiter,
+    Saturn,
+    Uranus,
+    Neptune
+}
 namespace Homework_Template
 {
     class Program
@@ -117,7 +127,8 @@ namespace Homework_Template
             // Add code for Exercise 4 here
             // Remove "throw new NotImplementedException()" line of code 
             //  once you add your code.
-            Console.Write("Enter a number to see the planet at that position >> ");
+            
+        Console.Write("Enter a number to see the planet at that position >> ");
             int position = Convert.ToInt32(Console.ReadLine());
 
             Planet selectedPlanet = (Planet)position;

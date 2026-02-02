@@ -1,7 +1,6 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path="Homework1.cs" />
-    <File Path="HomeworkTemplate.cs" />
   </Folder>
   <Project Path="366Homework.csproj" />
 </Solution>
