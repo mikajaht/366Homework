@@ -78,76 +78,35 @@ namespace Homework_Template
             // Add code for Exercise 1 here
             // Remove "throw new NotImplementedException()" line of code 
             //  once you add your code.
-            const double CENTIMETERS_PER_INCH = 2.54;
-            double inches = 3;
-            double centimeters = inches * CENTIMETERS_PER_INCH;
-
-            Console.WriteLine("Exercise 1");
-            Console.WriteLine($"{inches} inches is {centimeters:F2} centimeters");
+            throw new NotImplementedException();
         }
         private static void DoExe2()
         {
             // Add code for Exercise 2 here
             // Remove "throw new NotImplementedException()" line of code 
             //  once you add your code.
-            const double CENTIMETERS_PER_INCH = 2.54;
-
-            Console.WriteLine("Exercise 2");
-            Console.Write("Enter a value in inches >> ");
-            double inches = Convert.ToDouble(Console.ReadLine());
-
-            double centimeters = inches * CENTIMETERS_PER_INCH;
-            Console.WriteLine($"{inches} inches is {centimeters:F2} centimeters");
+            throw new NotImplementedException();
         }
         private static void DoExe3()
         {
             // Add code for Exercise 3 here
             // Remove "throw new NotImplementedException()" line of code 
             //  once you add your code.
-            Console.WriteLine("Exercise 3");
-            Console.Write("Enter Fahrenheit degrees >> ");
-            double fahrenheit = Convert.ToDouble(Console.ReadLine());
-
-            double celsius = (fahrenheit - 32) * 5 / 9;
-            Console.WriteLine($"{fahrenheit:F1} F is {celsius:F1} C");
+            throw new NotImplementedException();
         }
         private static void DoExe4()
         {
             // Add code for Exercise 4 here
             // Remove "throw new NotImplementedException()" line of code 
             //  once you add your code.
-            Console.Write("Enter a number to see the planet at that position >> ");
-            int position = Convert.ToInt32(Console.ReadLine());
-
-            Planet selectedPlanet = (Planet)position;
-
-            Console.WriteLine($"You entered {position}");
-            Console.WriteLine($"{selectedPlanet} is {position} planet(s) from the sun");
+            throw new NotImplementedException();
         }
         private static void DoExe5()
         {
             // Add code for Exercise 5 here
             // Remove "throw new NotImplementedException()" line of code 
             //  once you add your code.
-            string name;
-            string firstString, secondString;
-            int first, second, product;
-
-            Console.Write("Enter your name >> ");
-            name = Console.ReadLine();
-
-            Console.Write("Hello, {0}! Enter an integer >> ", name);
-            firstString = Console.ReadLine();
-            first = Convert.ToInt32(firstString);
-
-            Console.Write("Enter another integer >> ");
-            secondString = Console.ReadLine();
-            second = Convert.ToInt32(secondString);
-
-            product = first * second;
-
-            Console.WriteLine("Thank you, {0}. The product of {1} and {2} is {3}",
-                name, first, second, product);
+            throw new NotImplementedException();
         }
     }
 }
