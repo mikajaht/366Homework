@@ -81,7 +81,7 @@ namespace Homework_Template
         {
             Console.WriteLine("Exercise 2");
 
-            string name = "James";
+            string name = "Mikajah Tomlinson";
             DateTime now = DateTime.Now;
 
             Console.WriteLine("Composite Formatting");
