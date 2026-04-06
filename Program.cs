@@ -1,5 +1,4 @@
-﻿using _366Homework;
-using System;
+﻿using System;
 
 namespace Homework_Template
 {
