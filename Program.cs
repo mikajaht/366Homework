@@ -16,15 +16,14 @@ namespace Homework_Template
             while (result.ToUpper() != "E");
 
             Console.WriteLine(" Good Bye...");
-
         }
+
         public static string DisplayMenu()
         {
-
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("Homework 7");
+            Console.WriteLine("Homework 8");
             Console.WriteLine();
             Console.WriteLine("Hit [1] to run Exercise 1.");
             Console.WriteLine("Hit [2] to run Exercise 2.");
@@ -35,207 +34,210 @@ namespace Homework_Template
             Console.WriteLine();
             Console.WriteLine("Hit [E]: Exit;");
             Console.WriteLine();
-            Console.WriteLine();
 
-            var result = Console.ReadLine();
-            return result;
-
-
+            return Console.ReadLine();
         }
-        private static bool Run(string exeArg)
 
+        private static bool Run(string exeArg)
         {
             switch (exeArg.ToLower())
             {
-
                 case "1":
                     DoExe1();
+                    Pause();
                     return true;
 
                 case "2":
                     DoExe2();
+                    Pause();
                     return true;
 
                 case "3":
                     DoExe3();
+                    Pause();
                     return true;
 
                 case "4":
                     DoExe4();
+                    Pause();
                     return true;
 
                 case "5":
                     DoExe5();
+                    Pause();
                     return true;
+
+                case "e":
+                    Console.WriteLine("Exiting the Program!");
+                    return false;
 
                 default:
-                    Console.WriteLine("Exiting the Program!");
+                    Console.WriteLine("Invalid selection.");
+                    Pause();
                     return true;
             }
         }
+
         private static void DoExe1()
         {
-            // Add code for Exercise 1 here
-            // Remove "throw new NotImplementedException()" line of code 
-            //  once you add your code.
+            Console.WriteLine("Exercise 1\n");
 
-            Console.WriteLine("1");
+            Job job1 = new Job(111, "Smith", "exterior paint", 20);
+            Job job2 = new Job(222, "Vega", "gutter clean", 4);
+            Job job3 = new Job(111, "Land", "blacktop drive", 10);
 
-            SalesTransaction s1 = new SalesTransaction("Abbott", 2000, 0.20);
-            SalesTransaction s2 = new SalesTransaction("Bender", 4000);
-            SalesTransaction s3 = new SalesTransaction("Carter");
-            SalesTransaction total = s1 + s2 + s3;
+            Console.WriteLine(job1);
+            Console.WriteLine(job2);
+            Console.WriteLine(job3);
+            Console.WriteLine();
 
-            Display(s1);
-            Display(s2);
-            Display(s3);
-            DisplayTotal(total);
-
-            Pause();
+            CompareJobs(job1, job2);
+            CompareJobs(job1, job3);
         }
+
         private static void DoExe2()
         {
-            // Add code for Exercise 2 here
-            // Remove "throw new NotImplementedException()" line of code 
-            //  once you add your code.
+            Console.WriteLine("Exercise 2\n");
 
-            Console.WriteLine("2");
+            Job[] jobs = new Job[5];
+            int count = 0;
+            double total = 0;
 
-            Room[] rooms = new Room[8];
-            int x;
-            int len = 8;
-            int wid = 8;
-            int high = 8;
-
-            for (x = 0; x < rooms.Length; ++x)
+            while (count < jobs.Length)
             {
-                rooms[x] = new Room(len, wid, high);
-                len += 2;
-                wid += 1;
+                Console.Write("Enter job number: ");
+                int jobNumber = int.Parse(Console.ReadLine());
 
-                if (x % 2 == 1)
+                if (DuplicateJobNumber(jobs, count, jobNumber))
                 {
-                    high += 1;
+                    Console.WriteLine($"Sorry, {jobNumber} is a duplicate.\n");
+                    continue;
                 }
-            }
 
-            for (x = 0; x < rooms.Length; ++x)
-            {
-                Console.WriteLine("For a {0} X {1} X {2} foot room", rooms[x].Length, rooms[x].Width, rooms[x].Height);
-                Console.WriteLine("    Two walls are {0} long and {1} high", rooms[x].Length, rooms[x].Height);
-                Console.WriteLine("    and the other two walls are {0} long and {1} high", rooms[x].Width, rooms[x].Height);
-                Console.WriteLine("    Total wall area is {0}, so you need {1} gallon(s) of paint.", rooms[x].Area, rooms[x].Gallons);
+                Console.Write("Enter customer name: ");
+                string name = Console.ReadLine();
+
+                Console.Write("Enter job description: ");
+                string desc = Console.ReadLine();
+
+                Console.Write("Enter hours: ");
+                double hours = double.Parse(Console.ReadLine());
+
+                jobs[count] = new Job(jobNumber, name, desc, hours);
+                count++;
                 Console.WriteLine();
             }
 
-            Pause();
+            Console.WriteLine("Summary:\n");
+
+            foreach (var job in jobs)
+            {
+                Console.WriteLine(job);
+                total += job.Price;
+            }
+
+            Console.WriteLine($"\nTotal: {total:C2}");
         }
+
         private static void DoExe3()
         {
-            // Add code for Exercise 3 here
-            // Remove "throw new NotImplementedException()" line of code 
-            //  once you add your code.
+            Console.WriteLine("Exercise 3\n");
 
-            Console.WriteLine("3");
+            RushJob[] jobs = new RushJob[5];
+            int count = 0;
+            double total = 0;
 
-            Sale[] sales = new Sale[10];
-
-            for (int i = 0; i < sales.Length; i++)
+            while (count < jobs.Length)
             {
-                sales[i] = new Sale();
+                Console.Write("Enter job number: ");
+                int jobNumber = int.Parse(Console.ReadLine());
 
-                Console.Write("Enter inventory number #{0} >> ", i + 1);
-                sales[i].InventoryNumber = Convert.ToInt32(Console.ReadLine());
+                if (DuplicateRushJobNumber(jobs, count, jobNumber))
+                {
+                    Console.WriteLine($"Duplicate {jobNumber}. Try again.\n");
+                    continue;
+                }
 
-                Console.Write("Enter amount of sale >> ");
-                sales[i].Amount = Convert.ToDecimal(Console.ReadLine());
+                Console.Write("Enter name: ");
+                string name = Console.ReadLine();
+
+                Console.Write("Enter description: ");
+                string desc = Console.ReadLine();
+
+                Console.Write("Enter hours: ");
+                double hours = double.Parse(Console.ReadLine());
+
+                jobs[count] = new RushJob(jobNumber, name, desc, hours);
+                count++;
+                Console.WriteLine();
             }
 
-            Console.WriteLine();
+            Console.WriteLine("Summary:\n");
 
-            for (int i = 0; i < sales.Length; i++)
+            foreach (var job in jobs)
             {
-                Console.WriteLine("Sale # {0} Amount: {1} Sale {2:C}", i + 1, sales[i].InventoryNumber, sales[i].Amount);
-                Console.WriteLine("    Tax is {0:C}", sales[i].TaxOwed);
+                Console.WriteLine(job);
+                total += job.Price;
             }
 
-            Pause();
+            Console.WriteLine($"\nTotal: {total:C2}");
         }
+
         private static void DoExe4()
         {
-            // Add code for Exercise 4 here
-            // Remove "throw new NotImplementedException()" line of code 
-            //  once you add your code.
+            Console.WriteLine("Exercise 4\n");
 
-            Console.WriteLine("4");
+            Customer c = new Customer();
+            FrequentCustomer fc = new FrequentCustomer();
 
-            Car myCar = new Car(32000, "red");
-            Car yourCar = new Car(14000);
-            Car theirCar = new Car();
+            c.CustNum = 2514;
+            c.CustBalance = 765;
 
-            Console.WriteLine("My {0} car cost {1}", myCar.Color, myCar.Price.ToString("C2"));
-            Console.WriteLine("Your {0} car cost {1}", yourCar.Color, yourCar.Price.ToString("C2"));
-            Console.WriteLine("Their {0} car cost {1}", theirCar.Color, theirCar.Price.ToString("C2"));
+            fc.CustNum = 5719;
+            fc.CustBalance = 2500;
+            fc.DiscountRate = 0.15;
 
-            Pause();
+            Console.WriteLine($"Customer #{c.CustNum} owes {c.CustBalance:C2}");
+            Console.WriteLine($"Frequent #{fc.CustNum} owes {fc.CustBalance:C2} before discount");
+
+            double newBal = (1 - fc.DiscountRate) * fc.CustBalance;
+
+            Console.WriteLine($"After {fc.DiscountRate:P} discount: {newBal:C2}");
         }
+
         private static void DoExe5()
         {
-            // Add code for Exercise 5 here
-            // Remove "throw new NotImplementedException()" line of code 
-            //  once you add your code.
-
-            Console.WriteLine("5");
-
-            const int STARTINGNUM = 201601;
-            BoatLicense[] license = new BoatLicense[3];
-            int x;
-
-            for (x = 0; x < license.Length; ++x)
-            {
-                license[x] = new BoatLicense();
-                license[x].LicenseNum = "#" + x + STARTINGNUM;
-            }
-
-            license[0].State = "WI";
-            license[1].State = "MI";
-            license[2].State = "MN";
-
-            license[0].MotorSizeInHP = 30;
-            license[1].MotorSizeInHP = 50;
-            license[2].MotorSizeInHP = 100;
-
-            for (x = 0; x < license.Length; ++x)
-            {
-                Display(license[x]);
-            }
-
-            Pause();
+            Console.WriteLine("Exercise 5 not used.");
         }
 
-        public static void Display(SalesTransaction s)
+        private static void Pause()
         {
-            Console.WriteLine("{0} had sales totaling {1}. Commission rate is {2}; commission value is {3}.",
-                s.Name, s.SalesAmount, s.CommissionRate, s.Commission);
-        }
-
-        public static void DisplayTotal(SalesTransaction s)
-        {
-            Console.WriteLine("Total sales: {0:C}", s.SalesAmount);
-        }
-
-        public static void Display(BoatLicense b)
-        {
-            Console.WriteLine("Boat {0} from {1} has a {2} HP motor.", b.LicenseNum, b.State, b.MotorSizeInHP);
-            Console.WriteLine("    The price for the license is {0:C}", b.Price);
-            Console.WriteLine();
-        }
-
-        public static void Pause()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Press Enter to continue...");
+            Console.WriteLine("\nPress Enter...");
             Console.ReadLine();
+        }
+
+        private static void CompareJobs(Job a, Job b)
+        {
+            if (a.Equals(b))
+                Console.WriteLine("Same job number");
+            else
+                Console.WriteLine("Different job numbers");
+        }
+
+        private static bool DuplicateJobNumber(Job[] jobs, int count, int num)
+        {
+            for (int i = 0; i < count; i++)
+                if (jobs[i].JobNumber == num)
+                    return true;
+            return false;
+        }
+
+        private static bool DuplicateRushJobNumber(RushJob[] jobs, int count, int num)
+        {
+            for (int i = 0; i < count; i++)
+                if (jobs[i].JobNumber == num)
+                    return true;
+            return false;
         }
     }
 }
