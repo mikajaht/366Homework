@@ -4,16 +4,21 @@ namespace Homework_Template
 {
     class RushJob : Job
     {
-        public const double FEE = 150;
+        public const double FEE = 150.00;
 
         public RushJob(int num, string name, string desc, double hrs)
-            : base(num, name, desc, hrs) { }
+            : base(num, name, desc, hrs)
+        {
+        }
 
-        public override double Price => base.Price + FEE;
+        public override double Price
+        {
+            get { return base.Price + FEE; }
+        }
 
         public override string ToString()
         {
-            return base.ToString() + $" (Rush +{FEE:C2}) = {Price:C2}";
+            return $"Homework_Template.RushJob {JobNumber} {CustomerName} {JobDescription} {Hours} hours @{RATE:C2} per hour. Rush job adds {FEE:C2} premium. Total price is {Price:C2}";
         }
     }
 }

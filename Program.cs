@@ -29,8 +29,6 @@ namespace Homework_Template
             Console.WriteLine("Hit [2] to run Exercise 2.");
             Console.WriteLine("Hit [3] to run Exercise 3.");
             Console.WriteLine("Hit [4] to run Exercise 4.");
-            Console.WriteLine("Hit [5] to run Exercise 5.");
-
             Console.WriteLine();
             Console.WriteLine("Hit [E]: Exit;");
             Console.WriteLine();
@@ -62,11 +60,6 @@ namespace Homework_Template
                     Pause();
                     return true;
 
-                case "5":
-                    DoExe5();
-                    Pause();
-                    return true;
-
                 case "e":
                     Console.WriteLine("Exiting the Program!");
                     return false;
@@ -80,7 +73,8 @@ namespace Homework_Template
 
         private static void DoExe1()
         {
-            Console.WriteLine("Exercise 1\n");
+            Console.WriteLine("Exercise 1");
+            Console.WriteLine();
 
             Job job1 = new Job(111, "Smith", "exterior paint", 20);
             Job job2 = new Job(222, "Vega", "gutter clean", 4);
@@ -97,7 +91,8 @@ namespace Homework_Template
 
         private static void DoExe2()
         {
-            Console.WriteLine("Exercise 2\n");
+            Console.WriteLine("Exercise 2");
+            Console.WriteLine();
 
             Job[] jobs = new Job[5];
             int count = 0;
@@ -110,7 +105,9 @@ namespace Homework_Template
 
                 if (DuplicateJobNumber(jobs, count, jobNumber))
                 {
-                    Console.WriteLine($"Sorry, {jobNumber} is a duplicate.\n");
+                    Console.WriteLine($"Sorry, the job number {jobNumber} is a duplicate.");
+                    Console.WriteLine("Please reenter the job.");
+                    Console.WriteLine();
                     continue;
                 }
 
@@ -120,7 +117,7 @@ namespace Homework_Template
                 Console.Write("Enter job description: ");
                 string desc = Console.ReadLine();
 
-                Console.Write("Enter hours: ");
+                Console.Write("Enter estimated hours for job: ");
                 double hours = double.Parse(Console.ReadLine());
 
                 jobs[count] = new Job(jobNumber, name, desc, hours);
@@ -128,7 +125,8 @@ namespace Homework_Template
                 Console.WriteLine();
             }
 
-            Console.WriteLine("Summary:\n");
+            Console.WriteLine("Summary:");
+            Console.WriteLine();
 
             foreach (var job in jobs)
             {
@@ -136,12 +134,14 @@ namespace Homework_Template
                 total += job.Price;
             }
 
-            Console.WriteLine($"\nTotal: {total:C2}");
+            Console.WriteLine();
+            Console.WriteLine($"Total for all jobs is {total:C2}");
         }
 
         private static void DoExe3()
         {
-            Console.WriteLine("Exercise 3\n");
+            Console.WriteLine("Exercise 3");
+            Console.WriteLine();
 
             RushJob[] jobs = new RushJob[5];
             int count = 0;
@@ -154,17 +154,19 @@ namespace Homework_Template
 
                 if (DuplicateRushJobNumber(jobs, count, jobNumber))
                 {
-                    Console.WriteLine($"Duplicate {jobNumber}. Try again.\n");
+                    Console.WriteLine($"Sorry, the job number {jobNumber} is a duplicate.");
+                    Console.WriteLine("Please reenter the job.");
+                    Console.WriteLine();
                     continue;
                 }
 
-                Console.Write("Enter name: ");
+                Console.Write("Enter customer name: ");
                 string name = Console.ReadLine();
 
-                Console.Write("Enter description: ");
+                Console.Write("Enter job description: ");
                 string desc = Console.ReadLine();
 
-                Console.Write("Enter hours: ");
+                Console.Write("Enter estimated hours for job: ");
                 double hours = double.Parse(Console.ReadLine());
 
                 jobs[count] = new RushJob(jobNumber, name, desc, hours);
@@ -172,7 +174,8 @@ namespace Homework_Template
                 Console.WriteLine();
             }
 
-            Console.WriteLine("Summary:\n");
+            Console.WriteLine("Summary:");
+            Console.WriteLine();
 
             foreach (var job in jobs)
             {
@@ -180,63 +183,76 @@ namespace Homework_Template
                 total += job.Price;
             }
 
-            Console.WriteLine($"\nTotal: {total:C2}");
+            Console.WriteLine();
+            Console.WriteLine($"Total for all jobs is {total:C2}");
         }
 
         private static void DoExe4()
         {
-            Console.WriteLine("Exercise 4\n");
+            Console.WriteLine("Exercise 4");
+            Console.WriteLine();
 
             Customer c = new Customer();
             FrequentCustomer fc = new FrequentCustomer();
 
             c.CustNum = 2514;
-            c.CustBalance = 765;
+            c.CustBalance = 765.00;
 
             fc.CustNum = 5719;
-            fc.CustBalance = 2500;
+            fc.CustBalance = 2500.00;
             fc.DiscountRate = 0.15;
 
-            Console.WriteLine($"Customer #{c.CustNum} owes {c.CustBalance:C2}");
-            Console.WriteLine($"Frequent #{fc.CustNum} owes {fc.CustBalance:C2} before discount");
+            Console.WriteLine("A regular customer #{0} owes {1}",
+                c.CustNum,
+                c.CustBalance.ToString("C2"));
+
+            Console.WriteLine("A frequent customer #{0} would owe {1} without the discount",
+                fc.CustNum,
+                fc.CustBalance.ToString("C2"));
 
             double newBal = (1 - fc.DiscountRate) * fc.CustBalance;
 
-            Console.WriteLine($"After {fc.DiscountRate:P} discount: {newBal:C2}");
-        }
-
-        private static void DoExe5()
-        {
-            Console.WriteLine("Exercise 5 not used.");
+            Console.WriteLine("...with {0} discount, customer owes {1}",
+                fc.DiscountRate.ToString("P"),
+                newBal.ToString("C2"));
         }
 
         private static void Pause()
         {
-            Console.WriteLine("\nPress Enter...");
+            Console.WriteLine();
+            Console.WriteLine("Press Enter...");
             Console.ReadLine();
         }
 
         private static void CompareJobs(Job a, Job b)
         {
             if (a.Equals(b))
-                Console.WriteLine("Same job number");
+            {
+                Console.WriteLine($"{a.JobNumber} for {a.CustomerName} has the same job number as {b.JobNumber} for {b.CustomerName}");
+            }
             else
-                Console.WriteLine("Different job numbers");
+            {
+                Console.WriteLine($"{a.JobNumber} for {a.CustomerName} does NOT have the same job number as {b.JobNumber} for {b.CustomerName}");
+            }
         }
 
         private static bool DuplicateJobNumber(Job[] jobs, int count, int num)
         {
             for (int i = 0; i < count; i++)
+            {
                 if (jobs[i].JobNumber == num)
                     return true;
+            }
             return false;
         }
 
         private static bool DuplicateRushJobNumber(RushJob[] jobs, int count, int num)
         {
             for (int i = 0; i < count; i++)
+            {
                 if (jobs[i].JobNumber == num)
                     return true;
+            }
             return false;
         }
     }

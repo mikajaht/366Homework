@@ -22,7 +22,10 @@ namespace Homework_Template
             }
         }
 
-        public virtual double Price => price;
+        public virtual double Price
+        {
+            get { return price; }
+        }
 
         public Job(int num, string name, string desc, double hrs)
         {
@@ -44,7 +47,7 @@ namespace Homework_Template
 
         public override string ToString()
         {
-            return $"{JobNumber} {CustomerName} {JobDescription} {Hours} hrs @ {RATE:C2} = {Price:C2}";
+            return $"Homework_Template.Job {JobNumber} {CustomerName} {JobDescription} {Hours} hours @{RATE:C2} per hour. Total price is {Price:C2}";
         }
     }
 }
