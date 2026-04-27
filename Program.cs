@@ -23,17 +23,20 @@ namespace Homework_Template
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("Homework 8");
+            Console.WriteLine("Homework 9");
             Console.WriteLine();
             Console.WriteLine("Hit [1] to run Exercise 1.");
             Console.WriteLine("Hit [2] to run Exercise 2.");
             Console.WriteLine("Hit [3] to run Exercise 3.");
             Console.WriteLine("Hit [4] to run Exercise 4.");
+
             Console.WriteLine();
             Console.WriteLine("Hit [E]: Exit;");
             Console.WriteLine();
+            Console.WriteLine();
 
-            return Console.ReadLine();
+            var result = Console.ReadLine();
+            return result;
         }
 
         private static bool Run(string exeArg)
@@ -42,27 +45,22 @@ namespace Homework_Template
             {
                 case "1":
                     DoExe1();
-                    Pause();
                     return true;
 
                 case "2":
                     DoExe2();
-                    Pause();
                     return true;
 
                 case "3":
                     DoExe3();
-                    Pause();
                     return true;
 
                 case "4":
                     DoExe4();
-                    Pause();
                     return true;
 
                 case "e":
-                    Console.WriteLine("Exiting the Program!");
-                    return false;
+                    return true;
 
                 default:
                     Console.WriteLine("Invalid selection.");
@@ -73,187 +71,203 @@ namespace Homework_Template
 
         private static void DoExe1()
         {
-            Console.WriteLine("Exercise 1");
-            Console.WriteLine();
+            // Exercise 1: SubscriptExceptionTest
+            double[] array = { 20.3, 44.6, 32.5, 46.7, 89.6, 67.5, 12.3, 14.6, 22.1, 13.6 };
 
-            Job job1 = new Job(111, "Smith", "exterior paint", 20);
-            Job job2 = new Job(222, "Vega", "gutter clean", 4);
-            Job job3 = new Job(111, "Land", "blacktop drive", 10);
+            int subscript = 0;
 
-            Console.WriteLine(job1);
-            Console.WriteLine(job2);
-            Console.WriteLine(job3);
-            Console.WriteLine();
+            while (subscript != 99)
+            {
+                try
+                {
+                    Console.Write("Enter a subscript value or 99 to quit >> ");
+                    subscript = Convert.ToInt32(Console.ReadLine());
 
-            CompareJobs(job1, job2);
-            CompareJobs(job1, job3);
+                    if (subscript != 99)
+                    {
+                        Console.WriteLine("The value is {0}", array[subscript]);
+                    }
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.WriteLine("Index was outside the bounds of the array.");
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("You must enter a whole number.");
+                }
+            }
+
+            Pause();
         }
 
         private static void DoExe2()
         {
-            Console.WriteLine("Exercise 2");
-            Console.WriteLine();
+            // Exercise 2: FindSquareRoot
+            double number;
+            double squareRoot = 0;
 
-            Job[] jobs = new Job[5];
-            int count = 0;
-            double total = 0;
-
-            while (count < jobs.Length)
+            try
             {
-                Console.Write("Enter job number: ");
-                int jobNumber = int.Parse(Console.ReadLine());
+                Console.Write("Enter a number ");
+                number = Convert.ToDouble(Console.ReadLine());
 
-                if (DuplicateJobNumber(jobs, count, jobNumber))
+                if (number < 0)
                 {
-                    Console.WriteLine($"Sorry, the job number {jobNumber} is a duplicate.");
-                    Console.WriteLine("Please reenter the job.");
-                    Console.WriteLine();
-                    continue;
+                    throw new ApplicationException("Number can't be negative.");
                 }
 
-                Console.Write("Enter customer name: ");
-                string name = Console.ReadLine();
-
-                Console.Write("Enter job description: ");
-                string desc = Console.ReadLine();
-
-                Console.Write("Enter estimated hours for job: ");
-                double hours = double.Parse(Console.ReadLine());
-
-                jobs[count] = new Job(jobNumber, name, desc, hours);
-                count++;
-                Console.WriteLine();
+                squareRoot = Math.Sqrt(number);
             }
-
-            Console.WriteLine("Summary:");
-            Console.WriteLine();
-
-            foreach (var job in jobs)
+            catch (FormatException)
             {
-                Console.WriteLine(job);
-                total += job.Price;
+                Console.WriteLine("Error: Input could not be converted to a number.");
+                squareRoot = 0;
+            }
+            catch (ApplicationException e)
+            {
+                Console.WriteLine("Error: {0}", e.Message);
+                squareRoot = 0;
             }
 
-            Console.WriteLine();
-            Console.WriteLine($"Total for all jobs is {total:C2}");
+            Console.WriteLine("Square root is {0}", squareRoot);
+
+            Pause();
         }
 
         private static void DoExe3()
         {
-            Console.WriteLine("Exercise 3");
-            Console.WriteLine();
-
-            RushJob[] jobs = new RushJob[5];
-            int count = 0;
-            double total = 0;
-
-            while (count < jobs.Length)
+            // Exercise 3: StudentGradeDemo
+            try
             {
-                Console.Write("Enter job number: ");
-                int jobNumber = int.Parse(Console.ReadLine());
-
-                if (DuplicateRushJobNumber(jobs, count, jobNumber))
-                {
-                    Console.WriteLine($"Sorry, the job number {jobNumber} is a duplicate.");
-                    Console.WriteLine("Please reenter the job.");
-                    Console.WriteLine();
-                    continue;
-                }
-
-                Console.Write("Enter customer name: ");
-                string name = Console.ReadLine();
-
-                Console.Write("Enter job description: ");
-                string desc = Console.ReadLine();
-
-                Console.Write("Enter estimated hours for job: ");
-                double hours = double.Parse(Console.ReadLine());
-
-                jobs[count] = new RushJob(jobNumber, name, desc, hours);
-                count++;
-                Console.WriteLine();
+                ReportCard card1 = new ReportCard("Adams", 80, 85);
+                card1.Display();
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("{0} {1}", "card1", e.Message);
             }
 
-            Console.WriteLine("Summary:");
-            Console.WriteLine();
-
-            foreach (var job in jobs)
+            try
             {
-                Console.WriteLine(job);
-                total += job.Price;
+                ReportCard card2 = new ReportCard("Brown", 20, 75);
+                card2.Display();
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("{0} {1}", "card2", e.Message);
             }
 
-            Console.WriteLine();
-            Console.WriteLine($"Total for all jobs is {total:C2}");
+            try
+            {
+                ReportCard card3 = new ReportCard("Cook", 100, 99);
+                card3.Display();
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("{0} {1}", "card3", e.Message);
+            }
+
+            try
+            {
+                ReportCard card4 = new ReportCard("Dee", -1, 85);
+                card4.Display();
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("{0} {1}", "card4", e.Message);
+            }
+
+            try
+            {
+                ReportCard card5 = new ReportCard("Edwards", 80, 101);
+                card5.Display();
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("{0} {1}", "card5", e.Message);
+            }
+
+            Pause();
         }
 
         private static void DoExe4()
         {
-            Console.WriteLine("Exercise 4");
-            Console.WriteLine();
+            // Exercise 4: Debugged salary validation code
+            double salary = 0;
+            string salVal;
+            bool isValidSalary = false;
 
-            Customer c = new Customer();
-            FrequentCustomer fc = new FrequentCustomer();
+            while (!isValidSalary)
+            {
+                try
+                {
+                    Console.Write("Enter an employee's salary ");
+                    salVal = Console.ReadLine();
+                    salary = Convert.ToDouble(salVal);
+                    isValidSalary = true;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("You must enter a number for the salary.");
+                }
+            }
 
-            c.CustNum = 2514;
-            c.CustBalance = 765.00;
+            Console.WriteLine("The salary {0} is valid", salary.ToString("C2"));
 
-            fc.CustNum = 5719;
-            fc.CustBalance = 2500.00;
-            fc.DiscountRate = 0.15;
-
-            Console.WriteLine("A regular customer #{0} owes {1}",
-                c.CustNum,
-                c.CustBalance.ToString("C2"));
-
-            Console.WriteLine("A frequent customer #{0} would owe {1} without the discount",
-                fc.CustNum,
-                fc.CustBalance.ToString("C2"));
-
-            double newBal = (1 - fc.DiscountRate) * fc.CustBalance;
-
-            Console.WriteLine("...with {0} discount, customer owes {1}",
-                fc.DiscountRate.ToString("P"),
-                newBal.ToString("C2"));
+            Pause();
         }
 
         private static void Pause()
         {
             Console.WriteLine();
-            Console.WriteLine("Press Enter...");
+            Console.WriteLine("Press Enter to continue...");
             Console.ReadLine();
         }
+    }
 
-        private static void CompareJobs(Job a, Job b)
+    class ReportCard
+    {
+        private string studentName;
+        private double midtermGrade;
+        private double finalExamGrade;
+        private double average;
+        private char letterGrade;
+
+        public ReportCard(string name, double midterm, double finalExam)
         {
-            if (a.Equals(b))
+            if (midterm < 0 || midterm > 100 || finalExam < 0 || finalExam > 100)
             {
-                Console.WriteLine($"{a.JobNumber} for {a.CustomerName} has the same job number as {b.JobNumber} for {b.CustomerName}");
+                throw new ArgumentException("Value does not fall within the expected range.");
             }
+
+            studentName = name;
+            midtermGrade = midterm;
+            finalExamGrade = finalExam;
+
+            average = (midtermGrade + finalExamGrade) / 2;
+            letterGrade = DetermineLetterGrade();
+        }
+
+        private char DetermineLetterGrade()
+        {
+            if (average >= 90)
+                return 'A';
+            else if (average >= 80)
+                return 'B';
+            else if (average >= 70)
+                return 'C';
+            else if (average >= 60)
+                return 'D';
             else
-            {
-                Console.WriteLine($"{a.JobNumber} for {a.CustomerName} does NOT have the same job number as {b.JobNumber} for {b.CustomerName}");
-            }
+                return 'F';
         }
 
-        private static bool DuplicateJobNumber(Job[] jobs, int count, int num)
+        public void Display()
         {
-            for (int i = 0; i < count; i++)
-            {
-                if (jobs[i].JobNumber == num)
-                    return true;
-            }
-            return false;
-        }
-
-        private static bool DuplicateRushJobNumber(RushJob[] jobs, int count, int num)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                if (jobs[i].JobNumber == num)
-                    return true;
-            }
-            return false;
+            Console.WriteLine("{0} report card created.", studentName);
+            Console.WriteLine("   Midterm: {0}   Final: {1}", midtermGrade, finalExamGrade);
+            Console.WriteLine("   Average: {0}   Grade: {1}", average, letterGrade);
         }
     }
 }
