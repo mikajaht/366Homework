@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Homework_Template
 {
@@ -15,24 +16,19 @@ namespace Homework_Template
             }
             while (result.ToUpper() != "E");
 
-            Console.WriteLine(" Good Bye...");
+            Console.WriteLine("Good Bye...");
         }
 
         public static string DisplayMenu()
         {
             Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("Homework 9");
+            Console.WriteLine("Homework 10");
             Console.WriteLine();
             Console.WriteLine("Hit [1] to run Exercise 1.");
             Console.WriteLine("Hit [2] to run Exercise 2.");
             Console.WriteLine("Hit [3] to run Exercise 3.");
-            Console.WriteLine("Hit [4] to run Exercise 4.");
-
             Console.WriteLine();
-            Console.WriteLine("Hit [E]: Exit;");
-            Console.WriteLine();
+            Console.WriteLine("Hit [E]: Exit");
             Console.WriteLine();
 
             var result = Console.ReadLine();
@@ -55,15 +51,11 @@ namespace Homework_Template
                     DoExe3();
                     return true;
 
-                case "4":
-                    DoExe4();
-                    return true;
-
                 case "e":
                     return true;
 
                 default:
-                    Console.WriteLine("Invalid selection.");
+                    Console.WriteLine("Invalid selection. Please try again.");
                     Pause();
                     return true;
             }
@@ -71,31 +63,45 @@ namespace Homework_Template
 
         private static void DoExe1()
         {
-            // Exercise 1: SubscriptExceptionTest
-            double[] array = { 20.3, 44.6, 32.5, 46.7, 89.6, 67.5, 12.3, 14.6, 22.1, 13.6 };
+            // Add code for Exercise 1 here
+            // Remove "throw new NotImplementedException()" line of code 
+            //  once you add your code.
 
-            int subscript = 0;
+            string directory;
 
-            while (subscript != 99)
+            Console.WriteLine("1");
+
+            Console.Write("Enter a directory >> ");
+            directory = Console.ReadLine();
+
+            while (directory.ToLower() != "end")
             {
-                try
+                if (Directory.Exists(directory))
                 {
-                    Console.Write("Enter a subscript value or 99 to quit >> ");
-                    subscript = Convert.ToInt32(Console.ReadLine());
+                    string[] files = Directory.GetFiles(directory);
 
-                    if (subscript != 99)
+                    Console.WriteLine(directory + " contains the following files");
+
+                    if (files.Length == 0)
                     {
-                        Console.WriteLine("The value is {0}", array[subscript]);
+                        Console.WriteLine("There are no files in this directory.");
+                    }
+                    else
+                    {
+                        foreach (string file in files)
+                        {
+                            Console.WriteLine("   " + file);
+                        }
                     }
                 }
-                catch (IndexOutOfRangeException)
+                else
                 {
-                    Console.WriteLine("Index was outside the bounds of the array.");
+                    Console.WriteLine("Directory " + directory + " does not exist");
                 }
-                catch (FormatException)
-                {
-                    Console.WriteLine("You must enter a whole number.");
-                }
+
+                Console.WriteLine();
+                Console.Write("Enter another directory or type end to quit >> ");
+                directory = Console.ReadLine();
             }
 
             Pause();
@@ -103,117 +109,104 @@ namespace Homework_Template
 
         private static void DoExe2()
         {
-            // Exercise 2: FindSquareRoot
-            double number;
-            double squareRoot = 0;
+            // Add code for Exercise 2 here
+            // Remove "throw new NotImplementedException()" line of code 
+            //  once you add your code.
 
-            try
+            Console.WriteLine("2");
+
+            Console.Write("Enter the full path of the Word file >> ");
+            string wordFileName = Console.ReadLine();
+
+            Console.Write("Enter the full path of the Notepad file >> ");
+            string notepadFileName = Console.ReadLine();
+
+            if (File.Exists(wordFileName) && File.Exists(notepadFileName))
             {
-                Console.Write("Enter a number ");
-                number = Convert.ToDouble(Console.ReadLine());
+                FileInfo wordFileInfo = new FileInfo(wordFileName);
+                FileInfo notepadFileInfo = new FileInfo(notepadFileName);
 
-                if (number < 0)
+                long wordFileSize = wordFileInfo.Length;
+                long notepadFileSize = notepadFileInfo.Length;
+
+                double ratio = (double)notepadFileSize / wordFileSize * 100;
+
+                Console.WriteLine();
+                Console.WriteLine("The size of the Word file is " + wordFileSize);
+                Console.WriteLine("and the size of the Notepad file is " + notepadFileSize);
+                Console.WriteLine("The Notepad file is " + ratio.ToString("F2") + "% of the size of the Word file");
+            }
+            else
+            {
+                Console.WriteLine();
+
+                if (!File.Exists(wordFileName))
                 {
-                    throw new ApplicationException("Number can't be negative.");
+                    Console.WriteLine("The Word file does not exist.");
                 }
 
-                squareRoot = Math.Sqrt(number);
+                if (!File.Exists(notepadFileName))
+                {
+                    Console.WriteLine("The Notepad file does not exist.");
+                }
             }
-            catch (FormatException)
-            {
-                Console.WriteLine("Error: Input could not be converted to a number.");
-                squareRoot = 0;
-            }
-            catch (ApplicationException e)
-            {
-                Console.WriteLine("Error: {0}", e.Message);
-                squareRoot = 0;
-            }
-
-            Console.WriteLine("Square root is {0}", squareRoot);
 
             Pause();
         }
 
         private static void DoExe3()
         {
-            // Exercise 3: StudentGradeDemo
-            try
-            {
-                ReportCard card1 = new ReportCard("Adams", 80, 85);
-                card1.Display();
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine("{0} {1}", "card1", e.Message);
-            }
+            // Add code for Exercise 3 here
+            // Remove "throw new NotImplementedException()" line of code 
+            //  once you add your code.
 
-            try
-            {
-                ReportCard card2 = new ReportCard("Brown", 20, 75);
-                card2.Display();
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine("{0} {1}", "card2", e.Message);
-            }
+            string fileName;
+            string directory;
+            string path;
+            string[] files;
+            int x;
 
-            try
-            {
-                ReportCard card3 = new ReportCard("Cook", 100, 99);
-                card3.Display();
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine("{0} {1}", "card3", e.Message);
-            }
+            Console.WriteLine("3");
 
-            try
-            {
-                ReportCard card4 = new ReportCard("Dee", -1, 85);
-                card4.Display();
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine("{0} {1}", "card4", e.Message);
-            }
+            Console.Write("Enter a directory: ");
+            directory = Console.ReadLine();
 
-            try
+            if (Directory.Exists(directory))
             {
-                ReportCard card5 = new ReportCard("Edwards", 80, 101);
-                card5.Display();
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine("{0} {1}", "card5", e.Message);
-            }
+                files = Directory.GetFiles(directory);
 
-            Pause();
-        }
-
-        private static void DoExe4()
-        {
-            // Exercise 4: Debugged salary validation code
-            double salary = 0;
-            string salVal;
-            bool isValidSalary = false;
-
-            while (!isValidSalary)
-            {
-                try
+                if (files.Length == 0)
                 {
-                    Console.Write("Enter an employee's salary ");
-                    salVal = Console.ReadLine();
-                    salary = Convert.ToDouble(salVal);
-                    isValidSalary = true;
+                    Console.WriteLine("There are no files in " + directory);
                 }
-                catch (FormatException)
+                else
                 {
-                    Console.WriteLine("You must enter a number for the salary.");
+                    Console.WriteLine(directory + " contains the following files");
+
+                    for (x = 0; x < files.Length; ++x)
+                    {
+                        Console.WriteLine(" " + files[x]);
+                    }
+
+                    Console.Write("\nEnter a file name: ");
+                    fileName = Console.ReadLine();
+
+                    path = Path.Combine(directory, fileName);
+
+                    if (File.Exists(path))
+                    {
+                        Console.WriteLine("File exists and was created " + File.GetCreationTime(path));
+                    }
+                    else
+                    {
+                        Console.WriteLine(fileName + " does not exist in the " + directory + " directory");
+                    }
                 }
             }
-
-            Console.WriteLine("The salary {0} is valid", salary.ToString("C2"));
+            else
+            {
+                Console.WriteLine("Directory " + directory + " does not exist");
+            }
 
             Pause();
         }
@@ -223,51 +216,6 @@ namespace Homework_Template
             Console.WriteLine();
             Console.WriteLine("Press Enter to continue...");
             Console.ReadLine();
-        }
-    }
-
-    class ReportCard
-    {
-        private string studentName;
-        private double midtermGrade;
-        private double finalExamGrade;
-        private double average;
-        private char letterGrade;
-
-        public ReportCard(string name, double midterm, double finalExam)
-        {
-            if (midterm < 0 || midterm > 100 || finalExam < 0 || finalExam > 100)
-            {
-                throw new ArgumentException("Value does not fall within the expected range.");
-            }
-
-            studentName = name;
-            midtermGrade = midterm;
-            finalExamGrade = finalExam;
-
-            average = (midtermGrade + finalExamGrade) / 2;
-            letterGrade = DetermineLetterGrade();
-        }
-
-        private char DetermineLetterGrade()
-        {
-            if (average >= 90)
-                return 'A';
-            else if (average >= 80)
-                return 'B';
-            else if (average >= 70)
-                return 'C';
-            else if (average >= 60)
-                return 'D';
-            else
-                return 'F';
-        }
-
-        public void Display()
-        {
-            Console.WriteLine("{0} report card created.", studentName);
-            Console.WriteLine("   Midterm: {0}   Final: {1}", midtermGrade, finalExamGrade);
-            Console.WriteLine("   Average: {0}   Grade: {1}", average, letterGrade);
         }
     }
 }
